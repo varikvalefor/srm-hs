@@ -17,12 +17,9 @@ overwriteRandomNTimes :: FilePath
                       -- ^ This value is the number of overwriting
                       -- passes to which the file is subjected.
                       -> IO ();
-overwriteRandomNTimes f n = helpy n
-  where
-  helpy :: Integer -> IO ()
-  helpy k
-    | k > 0 = getSize f >>= \size -> delete f >> writeBuffd f 0 size
-    | otherwise = return ();
+overwriteRandomNTimes f n
+  | n > 0 = getSize f >>= \size -> delete f >> writeBuffd f 0 size
+  | otherwise = return ();
 
 -- | @delete k@ modifies the file whose path is @k@ such that this file
 -- is blank.  This modification is not secure and can potentially be
