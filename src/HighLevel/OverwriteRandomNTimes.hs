@@ -50,8 +50,14 @@ getSize f = do
 -- @writeBuffd f 0 size@ writes @size@ bytes of random data to the
 -- file whose path is @f@.
 writeBuffd :: FilePath
+           -- ^ This value is the path of the file to which the
+           -- pseudorandom data is written.
            -> Integer
+           -- ^ This value is the amount of data which is already
+           -- written to the file.  The initial value should be 0.
            -> Integer
+           -- ^ This value is the size of the file.  This value
+           -- determines the stopping point of the recursion.
            -> IO ();
 writeBuffd f wrtn size
   | wrtn < size = appendectomy >> writeBuffd f (wrtn + amtToWrite) size
