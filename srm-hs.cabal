@@ -1,0 +1,33 @@
+cabal-version:      2.4
+name:               srm-hs
+version:            0.1.0.0
+
+synopsis: Tool for securely deleting files
+
+description: srm is a tool which is used to securely delete files by
+             overwriting such files.
+
+license:            BSD-3-Clause
+author:             Varik Valefor
+maintainer:         varikvalefor@aol.com
+
+copyright: (C) Varik Valefor 2021.  Basic rights reserved.
+-- category:
+
+extra-source-files:
+  README.md
+
+executable srm-hs
+  ghc-options: -O2
+  main-is: srm.hs
+  other-modules:
+    Base
+    HighLevel.OverwriteRandomNTimes
+  other-extensions: OverloadedStrings
+  build-depends:
+    base ^>=4.14.1.0,
+    random,
+    text
+  hs-source-dirs:
+    src
+  default-language: Haskell2010
