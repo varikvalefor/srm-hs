@@ -56,8 +56,9 @@ writeBuffd :: FilePath
            -- ^ This value is the amount of data which is already
            -- written to the file.  The initial value should be 0.
            -> Integer
-           -- ^ This value is the size of the file.  This value
-           -- determines the stopping point of the recursion.
+           -- ^ This value is the total amount of data which should be
+           -- written to the file.  This value functions as the stopping
+           -- point of the recursion.
            -> IO ();
 writeBuffd f wrtn size
   | wrtn < size = appendectomy >> writeBuffd f (wrtn + amtToWrite) size
