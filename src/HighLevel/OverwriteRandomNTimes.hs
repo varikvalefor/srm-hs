@@ -50,9 +50,9 @@ getSize f = do
 -- @writeBuffd f 0 size@ writes @size@ bytes of random data to the
 -- file whose path is @f@.
 writeBuffd :: FilePath
-             -> Integer
-             -> Integer
-             -> IO ();
+           -> Integer
+           -> Integer
+           -> IO ();
 writeBuffd f wrtn size
   | wrtn < size = appendectomy >> writeBuffd f (wrtn + amtToWrite) size
   | otherwise = return ()
