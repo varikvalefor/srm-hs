@@ -33,3 +33,10 @@ sectorSweep f n p = T.appendFile f $ T.take n' $ T.cycle $ fromJust p
   where
   n' :: GHC.Int.Int64
   n' = fromIntegral n;
+
+-- | @maxRandomBytes@ is the maximum number of random bytes which can be
+-- written to a file at any specific time; random data uses a decent bit
+-- of RAM, and capping the amount which is stored in RAM mitigates this
+-- problem.
+maxRandomBytes :: Integer;
+maxRandomBytes = 2^16;
