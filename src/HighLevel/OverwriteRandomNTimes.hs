@@ -57,4 +57,4 @@ writeBuffd f wrtn size
   appendectomy = sectorSweep f amtToWrite Nothing
   --
   amtToWrite :: Integer
-  amtToWrite = (size - wrtn) `mod` 2^16;
+  amtToWrite = min (2^16) (size - wrtn);
