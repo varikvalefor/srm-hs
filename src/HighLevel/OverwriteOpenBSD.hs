@@ -24,4 +24,4 @@ overwritePseudoOpenBSD f = getSize f >>= writeBuffdAll f
   writeBuffdAll f s = mapM_ overwriteWith ["\255", "\0", "\255"]
     where
     overwriteWith :: T.Text -> IO ()
-    overwriteWith a = delete f >> writeBuffd f s 0 a;
+    overwriteWith a = delete f >> writeBuffd f s 0 (Just a);
