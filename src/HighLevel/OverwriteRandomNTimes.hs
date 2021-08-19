@@ -17,8 +17,18 @@ overwriteRandomNTimes f n = T.writeFile f "" >> helpy n
   where
   helpy :: Integer -> IO ()
   helpy k
-    | k > 0 = openFile f WriteMode >>= hFileSize >>= writeBuffd f 0
+    | k > 0 = getSize f >>= writeBuffd f 0
     | otherwise = return ();
+
+-- | @getSize k@ returns the size of the file whose path is @k@.
+getSize :: FilePath
+        -- ^ The path of the file whose size should be returned
+        -> IO Integer;
+getSize f = do
+  howie <- openFile f WriteMode
+  size <- hFileSize howie
+  hClose howie
+  return size;
 
 -- | To avoid using terribly huge amounts of RAM, @writeBuffd@ is used
 -- to generate and write reasonably large amounts of random data to
