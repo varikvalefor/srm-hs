@@ -24,6 +24,7 @@ executable srm
     Base
     HighLevel.OverwriteRandomNTimes
     HighLevel.OverwriteOpenBSD
+    HighLevel.OverwriteGutmann
   other-extensions: OverloadedStrings
   build-depends:
     base ^>=4.14.1.0,
