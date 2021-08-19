@@ -21,25 +21,6 @@ overwriteRandomNTimes f n
   | n > 0 = getSize f >>= \size -> delete f >> writeBuffd f 0 size
   | otherwise = return ();
 
--- | @delete k@ modifies the file whose path is @k@ such that this file
--- is blank.  This modification is not secure and can potentially be
--- reversed.
-delete :: FilePath
-       -> IO ();
-delete f = writeFile f "";
-
--- | @getSize k@ returns the size of the file whose path is @k@.
-getSize :: FilePath
-        -- ^ The path of the file whose size should be returned
-        -> IO Integer;
-getSize f = do
-  howie <- openFile f ReadMode
-  size <- hFileSize howie
-  hClose howie
-  return size;
-  -- "@do"@ notation is used strictly because "@do@" notation fits this
-  -- process reasonably well.
-
 -- | To avoid using terribly huge amounts of RAM, @writeBuffd@ is used
 -- to generate and write reasonably large amounts of random data to
 -- files.
