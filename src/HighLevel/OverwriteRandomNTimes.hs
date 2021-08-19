@@ -15,8 +15,8 @@ overwriteRandomNTimes f n = T.writeFile f "" >> helpy n
   where
   helpy :: Integer -> IO ()
   helpy k
-    | k <= 0 = return ()
-    | otherwise = openFile f WriteMode >>= hFileSize >>= writeWBuffer f 0;
+    | k > 0 = openFile f WriteMode >>= hFileSize >>= writeWBuffer f 0
+    | otherwise = return ();
 
 -- | To avoid using terribly huge amounts of RAM, @writeWBuffer@ is used
 -- to generate and write reasonably large amounts of random data to
