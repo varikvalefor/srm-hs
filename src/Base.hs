@@ -2,6 +2,8 @@
 -- all other modules of HS-SRM.
 module Base where
 import System.Random;
+import qualified Data.Text.Lazy as T;
+import qualified Data.Text.Lazy.IO as T;
 
 -- | @sectorSweep f n 'Nothing'@ appends @n@ pseudorandom characters to
 -- the file whose path is @f@.
