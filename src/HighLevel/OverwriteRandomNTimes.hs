@@ -57,4 +57,4 @@ writeBuffd f wrtn size
   appendectomy = sectorSweep f amtToWrite Nothing
   --
   amtToWrite :: Integer
-  amtToWrite = min (2^16) (size - wrtn);
+  amtToWrite = min maxRandomBytes (size - wrtn);
