@@ -2,6 +2,7 @@
 -- all other modules of HS-SRM.
 module Base where
 import GHC.Int;
+import System.IO;
 import Data.Maybe;
 import System.Random;
 import qualified Data.Text.Lazy as T;
@@ -22,16 +23,14 @@ sectorSweep :: FilePath
             -- cycled and appended to the file.  If this value is
             -- 'Nothing', then pseudorandom data is used.
             -> IO ();
-sectorSweep f n Nothing = generateSuitableRandoms >>= T.appendFile f
+sectorSweep f n p = dataToBeWritten >>= T.appendFile f
   where
-  generateSuitableRandoms :: IO T.Text
-  generateSuitableRandoms = T.pack . take n' . randomRs (' ', '~') <$> newStdGen
+  dataToBeWritten :: IO T.Text
+  dataToBeWritten
+    | isNothing p = T.pack . take n' . randomRs (' ', '~') <$> newStdGen
+    | otherwise = return $ T.take n' $ T.cycle $ fromJust p
   --
-  n' :: Int
-  n' = fromIntegral n;
-sectorSweep f n p = T.appendFile f $ T.take n' $ T.cycle $ fromJust p
-  where
-  n' :: GHC.Int.Int64
+  n' :: Integral a => a
   n' = fromIntegral n;
 
 -- | @maxRandomBytes@ is the maximum number of random bytes which can be
