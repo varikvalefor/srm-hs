@@ -74,11 +74,13 @@ writeBuffd :: FilePath
         -> Integer
         -- ^ This value is the total number of bytes which should be
         -- written.
-        -> T.Text
+        -> Maybe T.Text
         -- ^ This value is the pattern which is written.
+        --
+        -- If this value is 'Nothing', then pseudorandom data is used.
         -> IO ();
 writeBuffd f wrtn size sq
-  | wrtn < size = sectorSweep f writeSize (Just sq) >>
+  | wrtn < size = sectorSweep f writeSize sq >>
     writeBuffd f (wrtn + writeSize) size sq
   | otherwise = return ()
   where
