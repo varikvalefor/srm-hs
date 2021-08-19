@@ -1,5 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 
+-- | This module contains @'overwriteRandomNTimes'@ and some functions
+-- which support @'overwriteRandomNTimes'@.
 module HighLevel.OverwriteRandomNTimes (overwriteRandomNTimes) where
 import Base;
 import System.IO;
