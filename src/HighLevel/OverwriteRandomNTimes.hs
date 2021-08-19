@@ -15,21 +15,21 @@ overwriteRandomNTimes f n = T.writeFile f "" >> helpy n
   where
   helpy :: Integer -> IO ()
   helpy k
-    | k > 0 = openFile f WriteMode >>= hFileSize >>= writeWBuffer f 0
+    | k > 0 = openFile f WriteMode >>= hFileSize >>= writeBuffd f 0
     | otherwise = return ();
 
--- | To avoid using terribly huge amounts of RAM, @writeWBuffer@ is used
+-- | To avoid using terribly huge amounts of RAM, @writeBuffd@ is used
 -- to generate and write reasonably large amounts of random data to
 -- files.
 --
--- @writeWBuffer f 0 size@ writes @size@ bytes of random data to the
+-- @writeBuffd f 0 size@ writes @size@ bytes of random data to the
 -- file whose path is @f@.
-writeWBuffer :: FilePath
+writeBuffd :: FilePath
              -> Integer
              -> Integer
              -> IO ();
-writeWBuffer f wrtn size
-  | wrtn < size = appendectomy >> writeWBuffer f (wrtn + amtToWrite) size
+writeBuffd f wrtn size
+  | wrtn < size = appendectomy >> writeBuffd f (wrtn + amtToWrite) size
   | otherwise = return ()
   where
   appendectomy :: IO ()
