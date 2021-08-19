@@ -29,6 +29,8 @@ getSize f = do
   size <- hFileSize howie
   hClose howie
   return size;
+  -- "@do"@ notation is used strictly because "@do@" notation fits this
+  -- process reasonably well.
 
 -- | To avoid using terribly huge amounts of RAM, @writeBuffd@ is used
 -- to generate and write reasonably large amounts of random data to
