@@ -1,6 +1,8 @@
 -- | This module provides functions which are used within essentially
 -- all other modules of HS-SRM.
 module Base where
+import GHC.Int;
+import Data.Maybe;
 import System.Random;
 import qualified Data.Text.Lazy as T;
 import qualified Data.Text.Lazy.IO as T;
@@ -23,5 +25,11 @@ sectorSweep :: FilePath
 sectorSweep f n Nothing = generateSuitableRandoms >>= T.appendFile f
   where
   generateSuitableRandoms :: IO T.Text
-  generateSuitableRandoms = T.pack . take n . randomRs <$> newStdGen;
-sectorSweep f n p = T.appendFile f $ T.take n $ T.cycle p;
+  generateSuitableRandoms = T.pack . take n' . randomRs (' ', '~') <$> newStdGen
+  --
+  n' :: Int
+  n' = fromIntegral n;
+sectorSweep f n p = T.appendFile f $ T.take n' $ T.cycle $ fromJust p
+  where
+  n' :: GHC.Int.Int64
+  n' = fromIntegral n;
