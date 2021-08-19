@@ -13,19 +13,26 @@ import qualified Data.Text.Lazy.IO as T;
 overwriteRandomNTimes :: FilePath
                       -> Integer
                       -> IO ();
-overwriteRandomNTimes f n = T.writeFile f "" >> helpy n
+overwriteRandomNTimes f n = helpy n
   where
   helpy :: Integer -> IO ()
   helpy k
-    | k > 0 = getSize f >>= writeBuffd f 0
+    | k > 0 = getSize f >>= \size -> delete f >> writeBuffd f 0 size
     | otherwise = return ();
+
+-- | @delete k@ modifies the file whose path is @k@ such that this file
+-- is blank.  This modification is not secure and can potentially be
+-- reversed.
+delete :: FilePath
+       -> IO ();
+delete f = writeFile f "";
 
 -- | @getSize k@ returns the size of the file whose path is @k@.
 getSize :: FilePath
         -- ^ The path of the file whose size should be returned
         -> IO Integer;
 getSize f = do
-  howie <- openFile f WriteMode
+  howie <- openFile f ReadMode
   size <- hFileSize howie
   hClose howie
   return size;
