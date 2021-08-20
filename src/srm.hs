@@ -47,8 +47,10 @@ mane :: Opt -> [String] -> IO ();
 mane opts args
   | optGutmann opts = run overwriteGutmann
   | optBSD opts = run overwritePseudoOpenBSD
-  | optRandom opts > 0 = mapM_ (flip overwriteRandomNTimes (optRandom opts)) args
+  | optRandom opts > 0 = mapM_ (flip overwriteRandomNTimes n) args
   | otherwise = error "Homeboy, what is your problem?"
   where
+  n :: Integer
+  n = optRandom opts
   run :: (FilePath -> IO ()) -> IO ()
   run k = mapM_ k args;
