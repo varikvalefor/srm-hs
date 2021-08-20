@@ -36,7 +36,8 @@ instance Options Opt where
         {
           optionShortFlags = "X",
           optionDefault = 0,
-          optionDescription = "Overwrite using k random sweeps, where k is the argument of this option."
+          optionDescription = "Overwrite using k random sweeps, " ++
+            "where k is the argument of this option."
         });
 
 main :: IO ();
