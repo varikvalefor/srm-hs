@@ -18,5 +18,7 @@ overwriteRandomNTimes :: FilePath
                       -- passes to which the file is subjected.
                       -> IO ();
 overwriteRandomNTimes f n
-  | n > 0 = getSize f >>= \size -> delete f >> writeBuffd f 0 size Nothing
+  | n > 0 = getSize f >>= \size ->
+            delete f >> writeBuffd f 0 size Nothing >>
+            overwriteRandomNTimes f (n - 1)
   | otherwise = return ();
