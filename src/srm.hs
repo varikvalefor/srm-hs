@@ -48,6 +48,7 @@ mane opts args
   | optGutmann opts = run overwriteGutmann
   | optBSD opts = run overwritePseudoOpenBSD
   | optRandom opts > 0 = mapM_ (flip overwriteRandomNTimes (optRandom opts)) args
+  | otherwise = error "Homeboy, what is your problem?"
   where
   run :: (FilePath -> IO ()) -> IO ()
   run k = mapM_ k args;
