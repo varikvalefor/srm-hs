@@ -52,5 +52,6 @@ mane opts args
   where
   n :: Integer
   n = optRandom opts
+  --
   run :: (FilePath -> IO ()) -> IO ()
   run k = mapM_ k args;
