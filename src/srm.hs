@@ -14,15 +14,30 @@ data Opt = Opt {
   -- @rm -P@ overwrites files.
   optBSD :: Bool,
   -- | @optRandom x@ iff the file should be overwritten with
-  -- pseudorandom data. 
-  optRandom :: Bool
+  -- pseudorandom data @x@ times. 
+  optRandom :: Integer
 };
 
 instance Options Opt where
   defineOptions = pure Opt
-    <*> simpleOption "P" False "Use OpenBSD's old overwriting method."
-    <*> simpleOption "G" False "Use the GUTMANN method."
-    <*> simpleOption "X" True "Overwrite using k random sweeps.";
+    <*> defineOption optionType_bool (\o -> o 
+        {
+          optionShortFlags = "P",
+          optionDefault = False,
+          optionDescription = "Use OpenBSD's old overwriting method."
+        })
+    <*> defineOption optionType_bool (\o -> o
+        {
+          optionShortFlags = "G",
+          optionDefault = False,
+          optionDescription = "Use the GUTMANN method."
+        })
+    <*> defineOption optionType_integer (\o -> o
+        {
+          optionShortFlags = "X",
+          optionDefault = 0,
+          optionDescription = "Overwrite using k random sweeps."
+        });
 
 main :: IO ();
 main = runCommand mane;
@@ -31,10 +46,7 @@ mane :: Opt -> [String] -> IO ();
 mane opts args
   | optGutmann opts = run overwriteGutmann
   | optBSD opts = run overwritePseudoOpenBSD
-  | optRandom opts= mapM_ (flip overwriteRandomNTimes n) (tail args)
+  | optRandom opts > 0 = mapM_ (flip overwriteRandomNTimes (optRandom opts)) args
   where
-  n :: Integer
-  n = read $ head args
-  --
   run :: (FilePath -> IO ()) -> IO ()
   run k = mapM_ k args;
