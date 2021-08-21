@@ -1,7 +1,6 @@
 -- | This module provides functions which are used within essentially
 -- all other modules of HS-SRM.
 module Base where
-import GHC.Int;
 import System.IO;
 import Data.Maybe;
 import System.Random;
