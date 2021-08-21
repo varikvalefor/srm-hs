@@ -1,7 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
--- |  This module contains @'overwritePseudoOpenBSD'@ and some functions
--- which support @'overwritePseudoOpenBSD'@.
+-- |  This module contains @'overwritePseudoOpenBSD'@.
 module HighLevel.OverwriteOpenBSD (overwritePseudoOpenBSD) where
 import Base;
 import System.IO;
