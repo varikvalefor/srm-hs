@@ -91,3 +91,16 @@ writeBuffd f wrtn size sq
   where
   writeSize :: Integer
   writeSize = min maxRandomBytes (size - wrtn);
+
+-- | @writeBuffd'@ is a wrapper for @'writeBuffd'@ which handles the
+-- fetching of files' sizes and the deleting of such files.  This
+-- function is added for the sake of reducing the amount of boilerplate
+-- crap which appears within @srm@.
+writeBuffd' :: FilePath
+            -- ^ This value is the path of the file which should be
+            -- overwritten.
+            -> Maybe T.Text
+            -- ^ This bit describes the data which is to be written to
+            -- the file.  See the documentation of @'writeBuffd'@.
+            -> IO ()
+writeBuffd' f p = getSize f >>= \s -> delete f >> writeBuffd f 0 s p;
