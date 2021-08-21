@@ -14,9 +14,6 @@ copyright:   (C) Varik Valefor 2021.  Basic rights reserved.
 bug-reports: http://github.com/varikvalefor/srm-hs/issues
 category:    File Manager
 
-extra-source-files:
-  README.md
-
 executable srm
   ghc-options: -O2
   main-is: srm.hs
