@@ -6,6 +6,10 @@ synopsis:    Tool for securely deleting files
 description: srm is a tool which is used to securely delete files by
              overwriting such files.
              .
+             srm currently supports overwriting files using the GUTMANN
+             method, OpenBSD's old "rm -P" process, a one-pass
+             null-byte-based thing, and N passes of pseudorandom data.
+             .
              srm aims to be well-documented, minimal, and overall very
              usable.
 
