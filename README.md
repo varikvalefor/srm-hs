@@ -4,7 +4,7 @@ This `srm`, hereinafter called `srm-hs`, is a program which securely deletes fil
 A subset of the axioms which are used in the development of `srm-hs` are as follows:
 * For all things, a thing should be documented well.
 * For all source files, a source file should be readable.
-* For all weird decisions, a weird decisions should be explained.
+* For all weird decisions, a weird decision should be explained.
 
 ## "Why Is the Executable Caled '`srm`', Not '`srm-hs`'?"
 Theorem.  The executable name "`srm`" is chosen over the executable name "`srm-hs`".
