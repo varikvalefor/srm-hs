@@ -12,6 +12,10 @@ import qualified Data.Text.Lazy.IO as T;
 -- the file whose path is @f@.
 -- @sectorSweep f n p@ otherwise appends @n@ characters of a
 -- @'T.cycle'@d @p@ to the file whose path is @f@.
+--
+-- Overwriting entire files with @sectorSweep@ is strictly
+-- _not recommended_; the RAM footprint of @sectorSweep _ a _@ is
+-- proportional to @a@.
 sectorSweep :: FilePath
             -- ^ This value is the path of the file which should be
             -- appended.
