@@ -1,4 +1,5 @@
 import Options;
+import System.Directory;
 import System.Environment;
 import Control.Applicative;
 import HighLevel.OverwriteGutmann;
@@ -13,8 +14,8 @@ data Opt = Opt {
   -- | @optBSD x@ iff the file should be overwritten as the old OpenBSD
   -- @rm -P@ overwrites files.
   optBSD :: Bool,
-  -- | @optRandom x@ iff the file should be overwritten with
-  -- pseudorandom data @x@ times. 
+  -- | @optRandom x == n@ iff the file should be overwritten with
+  -- pseudorandom data @n@ times.
   optRandom :: Integer
 };
 
@@ -55,12 +56,14 @@ mane :: Opt
      -> [String]
      -- ^ The paths of the files which should be overwritten
      -> IO ();
-mane opts args
-  | optGutmann opts = run overwriteGutmann
-  | optBSD opts = run overwritePseudoOpenBSD
-  | optRandom opts > 0 = mapM_ (flip overwriteRandomNTimes n) args
-  | otherwise = error "Homeboy, what is your problem?"
+mane opts args = overwrite >> mapM_ removeFile args
   where
+  overwrite
+    | optGutmann opts = run overwriteGutmann
+    | optBSD opts = run overwritePseudoOpenBSD
+    | optRandom opts > 0 = mapM_ (flip overwriteRandomNTimes n) args
+    | otherwise = error "Homeboy, what is your problem?"
+  --
   n :: Integer
   n = optRandom opts
   --

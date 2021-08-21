@@ -29,6 +29,7 @@ executable srm
     OverloadedStrings
   build-depends:
     base ^>=4.14.1.0,
+    directory,
     random,
     text,
     options
