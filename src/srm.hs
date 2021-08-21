@@ -56,14 +56,12 @@ overwrite :: Opt
           -> [String]
           -- ^ The paths of the files which should be overwritten
           -> IO ();
-overwrite opts args = overwrite'
+overwrite opts args
+  | optGutmann opts = run overwriteGutmann
+  | optBSD opts = run overwritePseudoOpenBSD
+  | optRandom opts > 0 = mapM_ (flip overwriteRandomNTimes n) args
+  | otherwise = error "Homeboy, what is your problem?"
   where
-  overwrite'
-    | optGutmann opts = run overwriteGutmann
-    | optBSD opts = run overwritePseudoOpenBSD
-    | optRandom opts > 0 = mapM_ (flip overwriteRandomNTimes n) args
-    | otherwise = error "Homeboy, what is your problem?"
-  --
   n :: Integer
   n = optRandom opts
   --
