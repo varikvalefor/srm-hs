@@ -9,4 +9,4 @@ overwriteSimple :: FilePath
                 -- ^ This bit is the path of the file which should be
                 -- securely erased.
                 -> IO ();
-overwriteSimple f = getSize f >>= \s -> delete f >> writeBuffd f 0 s (Just "\00");
+overwriteSimple f = writeBuffd' f (Just "\00");
