@@ -45,20 +45,20 @@ instance Options Opt where
         });
 
 main :: IO ();
-main = runCommand mane;
+main = runCommand overwrite >> runCommand delete;
 
--- | @mane a k@ determines the thing which should be done, where @a@
--- describes the options which are passed to @srm@ and @k@ is a
--- ['String']-based list of the paths of the files which should be
--- overwritten.
-mane :: Opt
-     -- ^ A description of the options which are passed to @srm@
-     -> [String]
-     -- ^ The paths of the files which should be overwritten
-     -> IO ();
-mane opts args = overwrite >> mapM_ removeFile args
+-- | @mane a k@ overwrites the files which are specified in @k@ via the
+-- process which is specified in @a@, where @a@ describes the options of
+-- @a@ and @k@ is a ['String']-based list of the paths of the files
+-- which should be overwritten.
+overwrite :: Opt
+          -- ^ A description of the options which are passed to @srm@
+          -> [String]
+          -- ^ The paths of the files which should be overwritten
+          -> IO ();
+overwrite opts args = overwrite'
   where
-  overwrite
+  overwrite'
     | optGutmann opts = run overwriteGutmann
     | optBSD opts = run overwritePseudoOpenBSD
     | optRandom opts > 0 = mapM_ (flip overwriteRandomNTimes n) args
@@ -69,3 +69,15 @@ mane opts args = overwrite >> mapM_ removeFile args
   --
   run :: (FilePath -> IO ()) -> IO ()
   run k = mapM_ k args;
+
+-- | @delete _ k@ deletes the files which are specified in @k@, where
+-- @k@ is a ['String']-based list of the file paths which are the
+-- arguments of @srm@.
+delete :: Opt
+       -- ^ This bit describes the options which are passed to @srm@...
+       -- and actually goes unused.
+       -> [String]
+       -- ^ This thing contains the paths of the files which are to be
+       -- deleted.
+       -> IO ();
+delete _ = mapM_ removeFile;
