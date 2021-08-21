@@ -1,7 +1,7 @@
 cabal-version:      2.4
 
-name:               srm-hs
-version:            0.1.0.0
+name:        srm-hs
+version:     0.1.0.0
 
 synopsis:    Tool for securely deleting files
 
