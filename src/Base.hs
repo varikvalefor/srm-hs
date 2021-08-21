@@ -68,22 +68,22 @@ delete f = writeFile f "";
 -- the overwriting of large files does not demand exorbitant amounts of
 -- RAM.
 writeBuffd :: FilePath
-        -- ^ This thing is the path to the file which is overwritten.
-        -- PROTIP: Using @"/dev/null"@ as this value is a half-decent
-        -- method of wasting processing power.
-        -> Integer
-        -- ^ This value is the number of bytes which are already
-        -- written.  This value is essentially only nonzero within
-        -- @writeBuffd@.
-        -> Integer
-        -- ^ This value is the total number of bytes which should be
-        -- written.
-        -> Maybe T.Text
-        -- ^ This value is the pattern which is cyclically written
-        -- to the file.
-        --
-        -- If this value is 'Nothing', then pseudorandom data is used.
-        -> IO ();
+           -- ^ This thing is the path to the file which is overwritten.
+           -- PROTIP: Using @"/dev/null"@ as this value is a half-decent
+           -- method of wasting processing power.
+           -> Integer
+           -- ^ This value is the number of bytes which are already
+           -- written.  This value is essentially only nonzero within
+           -- @writeBuffd@.
+           -> Integer
+           -- ^ This value is the total number of bytes which should be
+           -- written.
+           -> Maybe T.Text
+           -- ^ This value is the pattern which is cyclically written
+           -- to the file.
+           --
+           -- If this value is 'Nothing', then pseudorandom data is used.
+           -> IO ();
 writeBuffd f wrtn size sq
   | wrtn < size = sectorSweep f writeSize sq >>
     writeBuffd f (wrtn + writeSize) size sq
