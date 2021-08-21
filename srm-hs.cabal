@@ -5,10 +5,12 @@ version:     0.1.0.0
 synopsis:    Tool for securely deleting files
 description: srm is a tool which is used to securely delete files by
              overwriting such files.
+
 license:     BSD-3-Clause
 author:      Varik Valefor
 maintainer:  varikvalefor@aol.com
 copyright:   (C) Varik Valefor 2021.  Basic rights reserved.
+
 bug-reports: http://github.com/varikvalefor/srm-hs/issues
 category:    File Manager
 
