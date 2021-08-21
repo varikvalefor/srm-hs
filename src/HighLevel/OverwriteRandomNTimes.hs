@@ -18,4 +18,5 @@ overwriteRandomNTimes :: FilePath
                       -> IO ();
 overwriteRandomNTimes f n
   | n > 0 = writeBuffd' f Nothing >> overwriteRandomNTimes f (n - 1)
-  | otherwise = return ();
+  | n == 0 = return ()
+  | otherwise = error "You shouldn't be back here.";
