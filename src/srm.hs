@@ -33,7 +33,7 @@ instance Options Opt where
           optionDescription = "Use the GUTMANN method."
         })
     -- optBSD
-    <*> defineOption optionType_bool (\o -> o 
+    <*> defineOption optionType_bool (\o -> o
         {
           optionShortFlags = "P",
           optionDefault = False,
