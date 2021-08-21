@@ -1,2 +1,2 @@
 # srm-hs
-srm-hs is a Haskell-based clone of the `srm` utility.  srm-hs should be compatible with the most often-used options of `srm`... and support some custom stuff.
+This `srm`, hereinafter called `srm-hs`, is a program which securely deletes files by overwriting such files before deleting such files.  The phrase "this `srm`" is used because [there exists another program which is called "`srm`"](http://srm.sourceforge.net/); the latter `srm` actually precedes `srm-hs` and serves as the inspiration for `srm-hs`.
