@@ -6,7 +6,7 @@ A subset of the axioms which are used in the development of `srm-hs` is as follo
 * For all source files, a source file should be readable.
 * For all weird decisions, a weird decision should be explained.
 
-## "Why Is the Executable Caled '`srm`', Not '`srm-hs`'?"
+## "Why Is the Executable Called '`srm`', Not '`srm-hs`'?"
 Theorem.  The executable name "`srm`" is chosen over the executable name "`srm-hs`".
 
 Proof.
