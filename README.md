@@ -1,6 +1,11 @@
 # srm-hs
 This `srm`, hereinafter called `srm-hs`, is a program which securely deletes files by overwriting such files before deleting such files.  The phrase "this `srm`" is used because [there exists another program which is called "`srm`"](http://srm.sourceforge.net/); the latter `srm` actually precedes `srm-hs` and serves as the inspiration for `srm-hs`.
 
+A subset of the axioms which are used in the development of `srm-hs` are as follows:
+* For all things, a thing should be documented well.
+* For all source files, a source file should be readable.
+* For all weird decisions, a weird decisions should be explained.
+
 ## "Why Is the Executable Caled '`srm`', Not '`srm-hs`'?"
 Theorem.  The executable name "`srm`" is chosen over the executable name "`srm-hs`".
 
