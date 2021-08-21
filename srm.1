@@ -56,6 +56,14 @@ then
 .Sy FF ,
 then
 .Sy 00 .
+.It Fl s
+.Nm srm
+.Fl s
+.Pa file Op ...
+overwrites
+.Pa file
+et al. with null bytes.  This thing is not particularly secure but
+should ward off script kiddies.
 .It Fl X
 .Nm srm
 .Fl X

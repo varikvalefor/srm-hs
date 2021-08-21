@@ -2,6 +2,7 @@ import Options;
 import System.Directory;
 import System.Environment;
 import Control.Applicative;
+import HighLevel.OverwriteSimple;
 import HighLevel.OverwriteGutmann;
 import HighLevel.OverwriteOpenBSD;
 import HighLevel.OverwriteRandomNTimes;
@@ -16,7 +17,10 @@ data Opt = Opt {
   optBSD :: Bool,
   -- | @optRandom x == n@ iff the file should be overwritten with
   -- pseudorandom data @n@ times.
-  optRandom :: Integer
+  optRandom :: Integer,
+  -- | @optSimple x@ iff the file should be overwritten using the
+  -- "simple" method of the original @srm@.
+  optSimple :: Bool
 };
 
 instance Options Opt where
@@ -42,6 +46,13 @@ instance Options Opt where
           optionDefault = 0,
           optionDescription = "Overwrite using k random sweeps, " ++
             "where k is the argument of this option."
+        })
+    <*> defineOption optionType_bool (\o -> o
+        {
+          optionShortFlags = "s",
+          optionDefault = True,
+          optionDescription = "Overwrite with a single pass of null " ++
+            "bytes."
         });
 
 main :: IO ();
@@ -60,6 +71,7 @@ overwrite opts args
   | optGutmann opts = run overwriteGutmann
   | optBSD opts = run overwritePseudoOpenBSD
   | optRandom opts > 0 = mapM_ (flip overwriteRandomNTimes n) args
+  | optSimple opts = run overwriteSimple
   | otherwise = error "Homeboy, what is your problem?"
   where
   n :: Integer
