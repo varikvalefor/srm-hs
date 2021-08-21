@@ -8,7 +8,7 @@ import qualified Data.Text.Lazy as T;
 import qualified Data.Text.Lazy.IO as T;
 
 -- | @overwritePseudoOpenBSD k@ overwrites all bytes of @k@ with
--- @\'\\FF\'@, then @\'\\00\'@, and then @\'\\FF\'@.
+-- @\'\\0xFF\'@, then @\'\\0x00\'@, and then @\'\\0xFF\'@.
 --
 -- According to the manual page of the original @srm@, this
 -- functionality is equivalent to OpenBSD's @rm -P k@.  However,
