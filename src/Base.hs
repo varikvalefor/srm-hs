@@ -79,7 +79,8 @@ writeBuffd :: FilePath
         -- ^ This value is the total number of bytes which should be
         -- written.
         -> Maybe T.Text
-        -- ^ This value is the pattern which is written.
+        -- ^ This value is the pattern which is cyclically written
+        -- to the file.
         --
         -- If this value is 'Nothing', then pseudorandom data is used.
         -> IO ();
