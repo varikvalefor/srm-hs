@@ -1,7 +1,7 @@
 # srm-hs
 This `srm`, hereinafter called `srm-hs`, is a program which securely deletes files by overwriting such files before deleting such files.  The phrase "this `srm`" is used because [there exists another program which is called "`srm`"](http://srm.sourceforge.net/); the latter `srm` actually precedes `srm-hs` and serves as the inspiration for `srm-hs`.
 
-## "Why Is the Executable Caled "`srm`", Not "`srm-hs`"?
+## "Why Is the Executable Caled '`srm`', Not '`srm-hs`'?"
 Theorem.  The executable name "`srm`" is chosen over the executable name "`srm-hs`".
 
 Proof.
