@@ -15,7 +15,7 @@ For all executable names _a_, for all executable names _b_, the ease of typing _
 
 The ease of typing the executable name "`srm`" is greater than the ease of typing the executable name "`srm-hs`".
 
-Therefore, the executable name "`srm`" is chosen over the executable name "`srm-hs`".  Q.E.D. 
+Therefore, the executable name "`srm`" is chosen over the executable name "`srm-hs`".  Q.E.D.
 
 ## Contributing
 For all decent contributions, a decent contribution can be [submitted as a pull request](https://github.com/varikvalefor/srm-hs/pulls) or sent as an e-mail message to Varik "NOT A COMPUTER PROGRAMMER!!!" Valefor \<varikvalefor@aol.com\> such that the subject line of this e-mail message contains the phrase "SRM-HS CONTRIBUTION".
