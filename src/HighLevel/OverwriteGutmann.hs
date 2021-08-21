@@ -29,7 +29,7 @@ writeWPattern :: FilePath
               -- ^ This value is the pattern which should actually be
               -- written to the file.
               -> IO ();
-writeWPattern f p = getSize f >>= \s -> delete f >> writeBuffd f s 0 (Just p);
+writeWPattern f p = writeBuffd' f (Just p);
 
 -- | @acceptablePatterns@ is an ordered list of the non-random values
 -- which the GUTMANN method mandates.
