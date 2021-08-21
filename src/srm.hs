@@ -47,7 +47,11 @@ main = runCommand mane;
 -- describes the options which are passed to @srm@ and @k@ is a
 -- ['String']-based list of the paths of the files which should be
 -- overwritten.
-mane :: Opt -> [String] -> IO ();
+mane :: Opt
+     -- ^ A description of the options which are passed to @srm@
+     -> [String]
+     -- ^ The paths of the files which should be overwritten
+     -> IO ();
 mane opts args
   | optGutmann opts = run overwriteGutmann
   | optBSD opts = run overwritePseudoOpenBSD
