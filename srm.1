@@ -1,0 +1,59 @@
+.Dd $Mdocdate$
+.Dt srm 1
+.Ox 6.9
+.Sh NAME
+.Nm srm
+.Nd securely remove files
+.Sh SYNOPSIS
+.Nm srm
+.Op Fl GPX
+.Sh DESCRIPTION
+.Nm srm
+is a small program which overwrites files before deleting such files,
+thereby hopefully preventing the recovery of such files.
+.Sh OPTIONS
+The options of
+.Nm srm
+are as follows:
+.Bl -tag -width Ds
+.It Fl G
+.Nm srm
+.Fl G
+.Pa file Op ...
+overwrites
+.Pa file
+et al. per the GUTMANN method.
+.Pp
+The Wikipedia article regarding this
+method of data sanitisation is actually fairly decent.  See
+.Lk http://en.wikipedia.org/wiki/Gutmann_method "Gutmann method" .
+
+.It Fl P
+.Nm srm
+.Fl P
+.Pa file Op ... 
+overwrites
+.Pa file
+et al. in accordance with OpenBSD's old
+.Nm rm
+.Fl P
+functionality.
+.Pa file
+et al. are overwritten with bytes
+.Sy 00 ,
+then
+.Sy FF ,
+then
+.Sy 00 .
+
+.It Fl X
+.Nm srm
+.Fl X
+.Ar y
+.Pa file Op ...
+overwrites
+.Pa file
+and cohorts with pseudorandom data
+.Ar y
+times.
+.Ed
