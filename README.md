@@ -18,4 +18,4 @@ The ease of typing the executable name "`srm`" is greater than the ease of typin
 Therefore, the executable name "`srm`" is chosen over the executable name "`srm-hs`".  Q.E.D. 
 
 ## Contributing
-For all decent contributions, a decent contribution can be [submitted as a pull request](https://github.com/varikvalefor/srm-hs/pulls) or sent as an e-mail message to Varik "NOT A COMPUTER PROGRAMMER!!!" Valefor such that the subject line of this e-mail message contains the phrase "SRM-HS CONTRIBUTION".
+For all decent contributions, a decent contribution can be [submitted as a pull request](https://github.com/varikvalefor/srm-hs/pulls) or sent as an e-mail message to Varik "NOT A COMPUTER PROGRAMMER!!!" Valefor \<varikvalefor@aol.com\> such that the subject line of this e-mail message contains the phrase "SRM-HS CONTRIBUTION".
