@@ -20,17 +20,17 @@ data Opt = Opt {
 
 instance Options Opt where
   defineOptions = pure Opt
-    <*> defineOption optionType_bool (\o -> o 
-        {
-          optionShortFlags = "P",
-          optionDefault = False,
-          optionDescription = "Use OpenBSD's old overwriting method."
-        })
     <*> defineOption optionType_bool (\o -> o
         {
           optionShortFlags = "G",
           optionDefault = False,
           optionDescription = "Use the GUTMANN method."
+        })
+    <*> defineOption optionType_bool (\o -> o 
+        {
+          optionShortFlags = "P",
+          optionDefault = False,
+          optionDescription = "Use OpenBSD's old overwriting method."
         })
     <*> defineOption optionType_integer (\o -> o
         {
