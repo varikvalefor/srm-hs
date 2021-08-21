@@ -16,20 +16,8 @@ overwriteGutmann :: FilePath
                  -> IO ();
 overwriteGutmann f =
   overwriteRandomNTimes f 4 >>
-  mapM_ (writeWPattern f) acceptablePatterns >>
+  mapM_ (writeBuffd' f . Just) acceptablePatterns >>
   overwriteRandomNTimes f 4;
-
--- | @writeWPattern a b@ writes a cycled version of @b@ to @a@.  The
--- length of the output cycled version equals the length of the content
--- of the original @a@.
-writeWPattern :: FilePath
-              -- ^ This bit is the path of the file to which the pattern
-              -- should be written.
-              -> T.Text
-              -- ^ This value is the pattern which should actually be
-              -- written to the file.
-              -> IO ();
-writeWPattern f p = writeBuffd' f (Just p);
 
 -- | @acceptablePatterns@ is an ordered list of the non-random values
 -- which the GUTMANN method mandates.
