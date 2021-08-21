@@ -43,6 +43,10 @@ instance Options Opt where
 main :: IO ();
 main = runCommand mane;
 
+-- | @mane a k@ determines the thing which should be done, where @a@
+-- describes the options which are passed to @srm@ and @k@ is a
+-- ['String']-based list of the paths of the files which should be
+-- overwritten.
 mane :: Opt -> [String] -> IO ();
 mane opts args
   | optGutmann opts = run overwriteGutmann
