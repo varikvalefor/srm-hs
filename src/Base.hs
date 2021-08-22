@@ -62,7 +62,7 @@ blank :: FilePath
        -> IO ();
 blank f = writeFile f "";
 
--- | The end result of @writeBuffd f a b p@ is equivalent to the end
+-- | The end result of @writeBuffd f 0 b p@ is equivalent to the end
 -- result of @'sectorSweep' f b p@.  This wrapper is used to ensure that
 -- the overwriting of large files does not demand exorbitant amounts of
 -- RAM.
