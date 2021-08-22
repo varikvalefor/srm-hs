@@ -45,7 +45,7 @@ maxRandomBytes = 2^16;
 
 -- | @getSize k@ returns the size of the file whose path is @k@.
 getSize :: FilePath
-        -- ^ The path of the file whose size should be returned
+        -- ^ This value is the path of the file whose size should be returned.
         -> IO Integer;
 getSize f = do
   howie <- openFile f ReadMode
