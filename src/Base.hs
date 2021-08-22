@@ -59,6 +59,7 @@ getSize f = do
 -- is blank.  This modification is not secure and can potentially be
 -- reversed.
 blank :: FilePath
+      -- ^ This bit is the path of the file which should be blanked.
       -> IO ();
 blank f = writeFile f "";
 
