@@ -96,7 +96,7 @@ writeBuffd f wrtn size sq
   writeSize = min maxRandomBytes (size - wrtn);
 
 -- | @writeBuffd'@ is a wrapper for @'writeBuffd'@ which handles the
--- fetching of files' sizes and the deleting of such files.  This
+-- fetching of files' sizes and the deletion of such files.  This
 -- function is added for the sake of reducing the amount of boilerplate
 -- crap which appears within @srm@.
 writeBuffd' :: FilePath
