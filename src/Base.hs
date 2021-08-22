@@ -1,5 +1,9 @@
 -- | This module provides functions which are used within essentially
 -- all other modules of HS-SRM.
+--
+-- The only things which should be of _major_ interest to most hackers
+-- are @'maxRandomBytes'@ and @'writeBuffd\''@.  But feel free to read
+-- the entirety of this source file.
 module Base where
 import System.IO;
 import Data.Maybe;
