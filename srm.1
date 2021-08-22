@@ -77,6 +77,18 @@ times, where
 .Ar y
 is a natural number.
 .Ed
+.Sh QUIRKS
+.Ss DELETING FILES WHOSE NAMES BEGIN WITH HYPHENS
+For all current-directory-based filenames
+.Va f ,
+.Va f
+matches the regular expression /-\\w+/ only if
+.Nm srm
+.Va f
+likely fails.  This problem can be overcome by prepending
+.Dq ./
+to
+.Va f .
 .Sh THANKS
 Mad props to
 .An MATT GAUTHIER
