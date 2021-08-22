@@ -59,7 +59,7 @@ getSize f = do
 -- is blank.  This modification is not secure and can potentially be
 -- reversed.
 blank :: FilePath
-       -> IO ();
+      -> IO ();
 blank f = writeFile f "";
 
 -- | The end result of @writeBuffd f 0 b p@ is equivalent to the end
