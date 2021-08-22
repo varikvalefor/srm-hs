@@ -19,10 +19,7 @@ overwritePseudoOpenBSD :: FilePath
                        -- ^ This file path refers to the file which
                        -- should be overwritten.
                        -> IO ();
-overwritePseudoOpenBSD f = getSize f >>= writeBuffdAll f
+overwritePseudoOpenBSD f = mapM_ (writeBuffd' f . Just) values
   where
-  writeBuffdAll :: FilePath -> Integer -> IO ()
-  writeBuffdAll f s = mapM_ overwriteWith ["\255", "\0", "\255"]
-    where
-    overwriteWith :: T.Text -> IO ()
-    overwriteWith a = delete f >> writeBuffd f s 0 (Just a);
+  values :: [T.Text]
+  values = ["\255", "\0", "\255"];
