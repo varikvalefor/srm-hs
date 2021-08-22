@@ -55,12 +55,12 @@ getSize f = do
   -- "@do"@ notation is used strictly because "@do@" notation fits this
   -- process reasonably well.
 
--- | @delete k@ modifies the file whose path is @k@ such that this file
+-- | @blank k@ modifies the file whose path is @k@ such that this file
 -- is blank.  This modification is not secure and can potentially be
 -- reversed.
-delete :: FilePath
+blank :: FilePath
        -> IO ();
-delete f = writeFile f "";
+blank f = writeFile f "";
 
 -- | The end result of @writeBuffd f a b p@ is equivalent to the end
 -- result of @'sectorSweep' f b p@.  This wrapper is used to ensure that
@@ -102,4 +102,4 @@ writeBuffd' :: FilePath
             -- ^ This bit describes the data which is to be written to
             -- the file.  See the documentation of @'writeBuffd'@.
             -> IO ()
-writeBuffd' f p = getSize f >>= \s -> delete f >> writeBuffd f 0 s p;
+writeBuffd' f p = getSize f >>= \s -> blank f >> writeBuffd f 0 s p;
