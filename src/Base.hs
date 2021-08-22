@@ -66,6 +66,10 @@ blank f = writeFile f "";
 -- result of @'sectorSweep' f b p@.  This wrapper is used to ensure that
 -- the overwriting of large files does not demand exorbitant amounts of
 -- RAM.
+--
+-- Note that @'writeBuffd\''@ also exists.  VARIK finds that
+-- @writeBuffd@ is sufficiently low-level to be a bit unwieldy and
+-- prefers using @'writeBuffd\''@ over using @writeBuffd@.
 writeBuffd :: FilePath
            -- ^ This thing is the path to the file which is overwritten.
            -- PROTIP: Using @"/dev/null"@ as this value is a half-decent
