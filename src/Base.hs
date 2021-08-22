@@ -38,7 +38,7 @@ sectorSweep f n p = dataToBeWritten >>= T.appendFile f
 
 -- | @maxRandomBytes@ is the maximum number of random bytes which can be
 -- written to a file at any specific time; random data uses a decent bit
--- of RAM, and capping the amount which is stored in RAM mitigates this
+-- of RAM, and capping the amount of random data which is stored in RAM mitigates this
 -- problem.
 maxRandomBytes :: Integer;
 maxRandomBytes = 2^16;
