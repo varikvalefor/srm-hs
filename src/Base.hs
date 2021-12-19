@@ -7,9 +7,9 @@
 module Base where
 import System.IO;
 import Data.Maybe;
-import System.Random;
 import qualified Data.Text.Lazy as T;
 import qualified Data.Text.Lazy.IO as T;
+import qualified Data.ByteString.Lazy as BSL;
 
 -- | @sectorSweep f n 'Nothing'@ appends @n@ pseudorandom characters to
 -- the file whose path is @f@.
@@ -34,9 +34,12 @@ sectorSweep f n p = dataToBeWritten >>= T.appendFile f
   where
   dataToBeWritten :: IO T.Text
   dataToBeWritten
-    | isNothing p = T.pack . take n' . randomRs (' ', '~') <$> newStdGen
+    | isNothing p = T.pack . 
+                    map (toEnum . fromEnum) . BSL.unpack . BSL.take n' .
+                    BSL.filter isAscii <$> BSL.readFile "/dev/urandom"
     | otherwise = return $ T.take n' $ T.cycle $ fromJust p
   --
+  isAscii = (`elem` (map (toEnum . fromEnum) [' '..'~']))
   n' :: Integral a => a
   n' = fromIntegral n;
 
