@@ -4,8 +4,6 @@
 module HighLevel.OverwriteRandomNTimes (overwriteRandomNTimes) where
 import Base;
 import System.IO;
-import qualified Data.Text.Lazy as T;
-import qualified Data.Text.Lazy.IO as T;
 
 -- | @overwriteRandomNTimes f n@ overwrites the file whose path is @f@
 -- with pseudorandom data @n@ times.

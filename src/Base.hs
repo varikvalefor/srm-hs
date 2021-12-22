@@ -7,14 +7,12 @@
 module Base where
 import System.IO;
 import Data.Maybe;
-import qualified Data.Text.Lazy as T;
-import qualified Data.Text.Lazy.IO as T;
 import qualified Data.ByteString.Lazy as BSL;
 
 -- | @sectorSweep f n 'Nothing'@ appends @n@ pseudorandom characters to
 -- the file whose path is @f@.
 -- @sectorSweep f n p@ otherwise appends @n@ characters of a
--- @'T.cycle'@d @p@ to the file whose path is @f@.
+-- @'BSL.cycle'@d @p@ to the file whose path is @f@.
 --
 -- Overwriting entire files with @sectorSweep@ is strictly
 -- _not recommended_; the RAM footprint of @sectorSweep _ a _@ is
@@ -25,19 +23,19 @@ sectorSweep :: FilePath
             -> Integer
             -- ^ This value is the total length of the data which should
             -- be appended to the file.
-            -> Maybe T.Text
+            -> Maybe BSL.ByteString
             -- ^ This value, if present, is the data which should be
             -- cycled and appended to the file.  If this value is
             -- 'Nothing', then pseudorandom data is used.
             -> IO ();
-sectorSweep f n p = dataToBeWritten >>= T.appendFile f
+sectorSweep f n p = dataToBeWritten >>= BSL.appendFile f
   where
-  dataToBeWritten :: IO T.Text
+  dataToBeWritten :: IO BSL.ByteString
   dataToBeWritten
-    | isNothing p = T.pack . 
+    | isNothing p = BSL.pack .
                     map (toEnum . fromEnum) . BSL.unpack . BSL.take n' .
                     BSL.filter isAscii <$> BSL.readFile "/dev/urandom"
-    | otherwise = return $ T.take n' $ T.cycle $ fromJust p
+    | otherwise = return $ BSL.take n' $ BSL.cycle $ fromJust p
   --
   isAscii = (`elem` (map (toEnum . fromEnum) [' '..'~']))
   n' :: Integral a => a
@@ -90,7 +88,7 @@ writeBuffd :: FilePath
            -> Integer
            -- ^ This value is the total number of bytes which should be
            -- written.
-           -> Maybe T.Text
+           -> Maybe BSL.ByteString
            -- ^ This value is the pattern which is cyclically written
            -- to the file.
            --
@@ -111,7 +109,7 @@ writeBuffd f wrtn size sq
 writeBuffd' :: FilePath
             -- ^ This value is the path of the file which should be
             -- overwritten.
-            -> Maybe T.Text
+            -> Maybe BSL.ByteString
             -- ^ This bit describes the data which is to be written to
             -- the file.  See the documentation of @'writeBuffd'@.
             -> IO ()

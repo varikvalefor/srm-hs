@@ -4,8 +4,7 @@
 module HighLevel.OverwriteOpenBSD (overwritePseudoOpenBSD) where
 import Base;
 import System.IO;
-import qualified Data.Text.Lazy as T;
-import qualified Data.Text.Lazy.IO as T;
+import qualified Data.ByteString.Lazy as BSL;
 
 -- | @overwritePseudoOpenBSD k@ overwrites all bytes of @k@ with
 -- @\'\\0xFF\'@, then @\'\\0x00\'@, and then @\'\\0xFF\'@.
@@ -21,5 +20,5 @@ overwritePseudoOpenBSD :: FilePath
                        -> IO ();
 overwritePseudoOpenBSD f = mapM_ (writeBuffd' f . Just) values
   where
-  values :: [T.Text]
+  values :: [BSL.ByteString]
   values = ["\255", "\0", "\255"];

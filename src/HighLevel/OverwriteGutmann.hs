@@ -5,9 +5,8 @@
 -- functions are not exported.
 module HighLevel.OverwriteGutmann (overwriteGutmann) where
 import Base;
-import qualified Data.Text.Lazy as T;
 import HighLevel.OverwriteRandomNTimes;
-import qualified Data.Text.Lazy.IO as T;
+import qualified Data.ByteString.Lazy as BSL;
 
 -- | Using the GUTMANN method, @overwriteGutmann f@ securely erases @f@.
 overwriteGutmann :: FilePath
@@ -21,7 +20,7 @@ overwriteGutmann f =
 
 -- | @acceptablePatterns@ is an ordered list of the non-random values
 -- which the GUTMANN method mandates.
-acceptablePatterns :: [T.Text];
+acceptablePatterns :: [BSL.ByteString];
 acceptablePatterns = ["\0x55", "\0xAA", "\0x92\0x49\0x24",
                       "\0x49\0x24\0x92", "\0x24\0x92\0x49", "\0x00",
                       "\0x11", "\0x22", "\0x33", "\0x44", "\0x55",
