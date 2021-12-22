@@ -19,7 +19,7 @@ maintainer:  varikvalefor@aol.com
 copyright:   (C) Varik Valefor 2021.  Basic rights reserved.
 
 bug-reports: http://github.com/varikvalefor/srm-hs/issues
-category:    File Manager
+category:    File
 
 executable srm
   ghc-options: -O2
