@@ -52,13 +52,8 @@ getSize :: FilePath
         -- ^ This value is the path of the file whose size should be
         -- returned.
         -> IO Integer;
-getSize f = do
-  howie <- openFile f ReadMode
-  size <- hFileSize howie
-  hClose howie
-  return size;
-  -- "@do"@ notation is used strictly because "@do@" notation fits this
-  -- process reasonably well.
+getSize f = openFile f ReadMode >>= nabSize
+  where nabSize h = hFileSize h >>= \s -> hClose h >> pure s;
 
 -- | @blank k@ modifies the file whose path is @k@ such that this file
 -- is blank.  This modification is not secure and can potentially be
