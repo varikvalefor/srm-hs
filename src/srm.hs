@@ -71,7 +71,7 @@ overwrite :: Opt
 overwrite opts args
   | optGutmann opts = run overwriteGutmann
   | optBSD opts = run overwritePseudoOpenBSD
-  | optRandom opts > 0 = mapM_ (flip overwriteRandomNTimes n) args
+  | optRandom opts > 0 = run $ flip overwriteRandomNTimes n
   | optSimple opts = run overwriteSimple
   | otherwise = error "Homeboy, what is your problem?"
   where
