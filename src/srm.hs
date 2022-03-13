@@ -8,6 +8,9 @@ import HighLevel.OverwriteOpenBSD;
 import HighLevel.OverwriteRandomNTimes;
 
 -- | For all 'Opt' @k@, @k@ describes the arguments of the program.
+--
+-- Within the remainder of this documentation, @x@ denotes the main
+-- 'Opt' variable of @srm@.
 data Opt = Opt {
   -- | @optGutmann x@ iff the file should be overwritten per the GUTMANN
   -- method.
