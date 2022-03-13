@@ -31,11 +31,11 @@ sectorSweep :: FilePath
 sectorSweep f n p = dataToBeWritten >>= BSL.appendFile f
   where
   dataToBeWritten :: IO BSL.ByteString
-  dataToBeWritten
-    | isNothing p = BSL.pack .
+  dataToBeWritten = maybe newPseudorandom contain p
+  contain = return . BSL.take n' . BSL.cycle
+  newPseudorandom  = BSL.pack .
                     map (toEnum . fromEnum) . BSL.unpack . BSL.take n' .
                     BSL.filter isAscii <$> BSL.readFile "/dev/urandom"
-    | otherwise = return $ BSL.take n' $ BSL.cycle $ fromJust p
   --
   isAscii = (`elem` (map (toEnum . fromEnum) [' '..'~']))
   n' :: Integral a => a
