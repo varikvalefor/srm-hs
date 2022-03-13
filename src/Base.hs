@@ -5,6 +5,7 @@
 -- are @'maxRandomBytes'@ and @'writeBuffd\''@.  But feel free to read
 -- the entirety of this source file.
 module Base where
+import Data.Bool;
 import System.IO;
 import Data.Maybe;
 import qualified Data.ByteString.Lazy as BSL;
@@ -88,10 +89,9 @@ writeBuffd :: FilePath
            --
            -- If this value is 'Nothing', then pseudorandom data is used.
            -> IO ();
-writeBuffd f wrtn size sq
-  | wrtn < size = sectorSweep f writeSize sq >> recurse
-  | otherwise = return ()
+writeBuffd f wrtn size sq = bool (pure ()) writeCrap $ wrtn < size
   where
+  writeCrap = sectorSweep f writeSize sq >> recurse
   recurse = writeBuffd f (wrtn + writeSize) size sq
   writeSize :: Integer
   writeSize = min maxRandomBytes (size - wrtn);
