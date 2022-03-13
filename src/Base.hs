@@ -89,10 +89,10 @@ writeBuffd :: FilePath
            -- If this value is 'Nothing', then pseudorandom data is used.
            -> IO ();
 writeBuffd f wrtn size sq
-  | wrtn < size = sectorSweep f writeSize sq >>
-    writeBuffd f (wrtn + writeSize) size sq
+  | wrtn < size = sectorSweep f writeSize sq >> recurse
   | otherwise = return ()
   where
+  recurse = writeBuffd f (wrtn + writeSize) size sq
   writeSize :: Integer
   writeSize = min maxRandomBytes (size - wrtn);
 
