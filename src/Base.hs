@@ -34,9 +34,8 @@ sectorSweep f n p = dataToBeWritten >>= BSL.appendFile f
   dataToBeWritten :: IO BSL.ByteString
   dataToBeWritten = maybe newPseudorandom contain p
   contain = return . BSL.take n' . BSL.cycle
-  newPseudorandom  = BSL.pack .
-                    map (toEnum . fromEnum) . BSL.unpack . BSL.take n' .
-                    BSL.filter isAscii <$> BSL.readFile "/dev/urandom"
+  newPseudorandom = BSL.take n' <$> uRandom
+  uRandom = BSL.filter isAscii <$> BSL.readFile "/dev/urandom"
   isAscii = (`elem` (map (toEnum . fromEnum) [' '..'~']))
   n' :: Integral a => a
   n' = fromIntegral n;
