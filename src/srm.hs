@@ -113,8 +113,9 @@ files :: [FilePath]
       -- subdirectories and folders which are contained by $T$.  If
       -- $T$ is the path of a plain ol' file, then $T$ remains the same.
       -> IO [String];
-files k = bool (pure k) (concat <$> mapM contentsOrId k) =<< anyM dde k
+files k = bool (pure k) recurse =<< anyM dde k
   where
+  recurse = files =<< concat <$> mapM contentsOrId k
   dde = doesDirectoryExist
   subDirs = concat <$> mapM contentsOrId k
   anyM f l = or <$> mapM f l
