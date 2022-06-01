@@ -6,7 +6,7 @@
 .Nd securely remove files
 .Sh SYNOPSIS
 .Nm srm
-.Op Fl GPsX
+.Op Fl EGPsX
 .Ar file ...
 .Sh DESCRIPTION
 .Nm srm
@@ -29,6 +29,15 @@ The options of
 .Nm srm
 are as follows:
 .Bl -tag -width Ds
+.It Fl E
+.Nm srm
+.Fl G
+.Pa file Op ...
+overwrites
+.Pa file
+et al. in accordance with the United States Department of Energy
+thing which is implemented by the original
+.Nm srm .
 .It Fl G
 .Nm srm
 .Fl G
