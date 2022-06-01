@@ -79,8 +79,6 @@ blank f = writeFile f "";
 -- prefers using @'writeBuffd\''@ over using @writeBuffd@.
 writeBuffd :: FilePath
            -- ^ This thing is the path to the file which is overwritten.
-           -- PROTIP: Using @"/dev/null"@ as this value is a half-decent
-           -- method of wasting processing power.
            -> Integer
            -- ^ This value is the number of bytes which are already
            -- written.  This value is essentially only nonzero within
