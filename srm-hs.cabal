@@ -30,6 +30,7 @@ executable srm
     HighLevel.OverwriteOpenBSD
     HighLevel.OverwriteGutmann
     HighLevel.OverwriteSimple
+    HighLevel.OverwriteFemaleDeer
   other-extensions:
     OverloadedStrings
   build-depends:
