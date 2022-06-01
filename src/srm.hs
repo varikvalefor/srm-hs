@@ -25,36 +25,38 @@ data Opt = Opt {
 
 instance Options Opt where
   defineOptions = pure Opt
-    -- optGutmann
-    <*> defineOption optionType_bool (\o -> o
-        {
-          optionShortFlags = "G",
-          optionDefault = False,
-          optionDescription = "Use the GUTMANN method."
-        })
-    -- optBSD
-    <*> defineOption optionType_bool (\o -> o
-        {
-          optionShortFlags = "P",
-          optionDefault = False,
-          optionDescription = "Use OpenBSD's old overwriting method."
-        })
-    -- optRandom
-    <*> defineOption optionType_integer (\o -> o
-        {
-          optionShortFlags = "X",
-          optionDefault = 0,
-          optionDescription = "Overwrite using k random sweeps, " ++
-            "where k is the argument of this option."
-        })
+              <*> optGutmann'
+              <*> optBsd'
+              <*> optRand'
+              <*> optSimple'
+    where
+    optGutmann' = defineOption optionType_bool (\o -> o
+      {
+        optionShortFlags = "G",
+        optionDefault = False,
+        optionDescription = "Use the GUTMANN method."
+      })
+    optBsd' = defineOption optionType_bool (\o -> o
+      {
+        optionShortFlags = "P",
+        optionDefault = False,
+        optionDescription = "Use OpenBSD's old overwriting method."
+      })
+    optRand' = defineOption optionType_integer (\o -> o
+      {
+        optionShortFlags = "X",
+        optionDefault = 0,
+        optionDescription = "Overwrite using k random sweeps, " ++
+          "where k is the argument of this option."
+      })
     -- optSimple
-    <*> defineOption optionType_bool (\o -> o
-        {
-          optionShortFlags = "s",
-          optionDefault = True,
-          optionDescription = "Overwrite with a single pass of null " ++
-            "bytes."
-        });
+    optSimple' = defineOption optionType_bool (\o -> o
+      {
+        optionShortFlags = "s",
+        optionDefault = True,
+        optionDescription = "Overwrite with a single pass of null " ++
+          "bytes."
+      });
 
 main :: IO ();
 main = runCommand overwrite >> runCommand delete;
