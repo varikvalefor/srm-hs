@@ -1,4 +1,6 @@
 import Options;
+import Data.Bool;
+import Control.Monad;
 import System.Directory;
 import System.Environment;
 import Control.Applicative;
@@ -23,7 +25,10 @@ data Opt = Opt {
   optRandom :: Integer,
   -- | @optSimple x@ iff the file should be overwritten using the
   -- "simple" method of the original @srm@.
-  optSimple :: Bool
+  optSimple :: Bool,
+  -- | @optRecurse x@ iff the contents of directories should be
+  -- deleted.
+  optRecurse :: Bool
 };
 
 instance Options Opt where
@@ -32,6 +37,7 @@ instance Options Opt where
               <*> optBsd'
               <*> optRand'
               <*> optSimple'
+              <*> optRecurse'
     where
     optGutmann' = defineOption optionType_bool (\o -> o
       {
@@ -59,6 +65,13 @@ instance Options Opt where
         optionDefault = True,
         optionDescription = "Overwrite with a single pass of null " ++
           "bytes."
+      })
+    optRecurse' = defineOption optionType_bool (\o -> o
+      {
+        optionShortFlags = "rR",
+        optionDefault = True,
+        optionDescription = "Recursively delete the contents of \
+                            \directories."
       });
 
 main :: IO ();
@@ -74,6 +87,7 @@ overwrite :: Opt
           -- ^ The paths of the files which should be overwritten
           -> IO ();
 overwrite opts args
+  | optRecurse opts = files args >>= overwrite opts {optRecurse = False}
   | optGutmann opts = run overwriteGutmann
   | optBSD opts = run overwritePseudoOpenBSD
   | optRandom opts > 0 = run $ flip overwriteRandomNTimes n
@@ -85,6 +99,29 @@ overwrite opts args
   --
   run :: (FilePath -> IO ()) -> IO ()
   run k = mapM_ k args;
+
+
+-- | @files k@ returns a list which contains /all/ files which are
+-- contained by the directories which are specified by @k@.  If @k@
+-- contains the paths of some standard files, then the paths of these
+-- files are also returned.
+--
+-- Recursion is used.
+files :: [FilePath]
+      -- ^ For any element of this list $T$, if $T$ is the path of a
+      -- directory, then $T$ is "replaced" by a list of the
+      -- subdirectories and folders which are contained by $T$.  If
+      -- $T$ is the path of a plain ol' file, then $T$ remains the same.
+      -> IO [String];
+files k = bool (pure k) (concat <$> mapM contentsOrId k) =<< anyM dde k
+  where
+  dde = doesDirectoryExist
+  subDirs = concat <$> mapM contentsOrId k
+  anyM f l = or <$> mapM f l
+  getGoodDirCont = liftM (filterOut ["..", "."]) . getDirectoryContents
+  filterOut b = filter (not . (`elem` b))
+  contentsOrId j = bool (pure $ pure j) (contentsOf j) =<< dde j
+  contentsOf j = map ((j ++ "/") ++) <$> getGoodDirCont j;
 
 -- | @delete _ k@ deletes the files which are specified in @k@, where
 -- @k@ is a ['String']-based list of the file paths which are the
