@@ -37,7 +37,6 @@ sectorSweep f n p = dataToBeWritten >>= BSL.appendFile f
   newPseudorandom = BSL.take n' <$> uRandom
   uRandom = BSL.filter isAscii <$> BSL.readFile "/dev/urandom"
   isAscii = (`elem` (map (toEnum . fromEnum) [' '..'~']))
-  n' :: Integral a => a
   n' = fromIntegral n;
 
 -- | @maxRandomBytes@ is the maximum number of random bytes which can be
