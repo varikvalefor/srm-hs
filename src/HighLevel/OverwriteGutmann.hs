@@ -13,10 +13,12 @@ overwriteGutmann :: FilePath
                  -- ^ This bit is the path of the file which should be
                  -- securely erased.
                  -> IO ();
-overwriteGutmann f =
-  overwriteRandomNTimes f 4 >>
-  mapM_ (writeBuffd' f . Just) acceptablePatterns >>
-  overwriteRandomNTimes f 4;
+overwriteGutmann f = pr >> pd >> pr
+  where
+  -- \| "@pr@" is an abbreviation of "pseudorandom".
+  pr = overwriteRandomNTimes f 4
+  -- \| "@pd@" is an abbreviation of "pre-determined".
+  pd = mapM_ (writeBuffd' f . Just) acceptablePatterns;
 
 -- | @acceptablePatterns@ is an ordered list of the non-random values
 -- which the GUTMANN method mandates.

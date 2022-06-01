@@ -5,6 +5,7 @@
 -- are @'maxRandomBytes'@ and @'writeBuffd\''@.  But feel free to read
 -- the entirety of this source file.
 module Base where
+import Data.Bool;
 import System.IO;
 import Data.Maybe;
 import qualified Data.ByteString.Lazy as BSL;
@@ -31,14 +32,11 @@ sectorSweep :: FilePath
 sectorSweep f n p = dataToBeWritten >>= BSL.appendFile f
   where
   dataToBeWritten :: IO BSL.ByteString
-  dataToBeWritten
-    | isNothing p = BSL.pack .
-                    map (toEnum . fromEnum) . BSL.unpack . BSL.take n' .
-                    BSL.filter isAscii <$> BSL.readFile "/dev/urandom"
-    | otherwise = return $ BSL.take n' $ BSL.cycle $ fromJust p
-  --
+  dataToBeWritten = maybe newPseudorandom contain p
+  contain = return . BSL.take n' . BSL.cycle
+  newPseudorandom = BSL.take n' <$> uRandom
+  uRandom = BSL.filter isAscii <$> BSL.readFile "/dev/urandom"
   isAscii = (`elem` (map (toEnum . fromEnum) [' '..'~']))
-  n' :: Integral a => a
   n' = fromIntegral n;
 
 -- | @maxRandomBytes@ is the maximum number of random bytes which can be
@@ -53,13 +51,8 @@ getSize :: FilePath
         -- ^ This value is the path of the file whose size should be
         -- returned.
         -> IO Integer;
-getSize f = do
-  howie <- openFile f ReadMode
-  size <- hFileSize howie
-  hClose howie
-  return size;
-  -- "@do"@ notation is used strictly because "@do@" notation fits this
-  -- process reasonably well.
+getSize f = openFile f ReadMode >>= nabSize
+  where nabSize h = hFileSize h >>= \s -> hClose h >> pure s;
 
 -- | @blank k@ modifies the file whose path is @k@ such that this file
 -- is blank.  This modification is not secure and can potentially be
@@ -92,11 +85,10 @@ writeBuffd :: FilePath
            --
            -- If this value is 'Nothing', then pseudorandom data is used.
            -> IO ();
-writeBuffd f wrtn size sq
-  | wrtn < size = sectorSweep f writeSize sq >>
-    writeBuffd f (wrtn + writeSize) size sq
-  | otherwise = return ()
+writeBuffd f wrtn size sq = bool (pure ()) writeCrap $ wrtn < size
   where
+  writeCrap = sectorSweep f writeSize sq >> recurse
+  recurse = writeBuffd f (wrtn + writeSize) size sq
   writeSize :: Integer
   writeSize = min maxRandomBytes (size - wrtn);
 
