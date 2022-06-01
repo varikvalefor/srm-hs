@@ -13,7 +13,7 @@ description: srm is a tool which securely deletes files by overwriting
              srm aims to be well-documented, minimal, and overall very
              usable.
 
-license:     BSD-3-Clause
+license:     Unlicense
 author:      Varik Valefor
 maintainer:  varikvalefor@aol.com
 copyright:   (C) Varik Valefor 2021.  Basic rights reserved.
