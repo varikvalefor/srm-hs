@@ -6,7 +6,7 @@
 .Nd securely remove files
 .Sh SYNOPSIS
 .Nm srm
-.Op Fl EGPsX
+.Op Fl EGPRrsX
 .Ar file ...
 .Sh DESCRIPTION
 .Nm srm
@@ -65,6 +65,13 @@ then
 .Sy FF ,
 then
 .Sy 00 .
+.It Fl R
+If
+.Fl R
+is specified, then directories are recursively shredded.
+.It Fl r
+See
+.Fl R .
 .It Fl s
 .Nm srm
 .Fl s
