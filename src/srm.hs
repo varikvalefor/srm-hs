@@ -7,6 +7,7 @@ import Control.Applicative;
 import HighLevel.OverwriteSimple;
 import HighLevel.OverwriteGutmann;
 import HighLevel.OverwriteOpenBSD;
+import HighLevel.OverwriteFemaleDeer;
 import HighLevel.OverwriteRandomNTimes;
 
 -- | For all 'Opt' @k@, @k@ describes the arguments of the program.
@@ -28,7 +29,11 @@ data Opt = Opt {
   optSimple :: Bool,
   -- | @optRecurse x@ iff the contents of directories should be
   -- deleted.
-  optRecurse :: Bool
+  optRecurse :: Bool,
+  -- | @optFemaleDeer x@ iff the file should be overwritten using the
+  -- Department of Energy thing which is implemented in the original
+  -- @srm@.
+  optFemaleDeer :: Bool
 };
 
 instance Options Opt where
@@ -38,6 +43,7 @@ instance Options Opt where
               <*> optRand'
               <*> optSimple'
               <*> optRecurse'
+              <*> optFemaleDeer'
     where
     optGutmann' = defineOption optionType_bool (\o -> o
       {
@@ -72,6 +78,13 @@ instance Options Opt where
         optionDefault = True,
         optionDescription = "Recursively delete the contents of \
                             \directories."
+      })
+    optFemaleDeer' = defineOption optionType_bool (\o -> o
+      {
+        optionShortFlags = "E",
+        optionDefault = False,
+        optionDescription = "Use the original srm(1)'s Department of \
+                            \Energy wiping method."
       });
 
 main :: IO ();
@@ -90,6 +103,7 @@ overwrite opts args
   | optRecurse opts = files args >>= overwrite opts {optRecurse = False}
   | optGutmann opts = run overwriteGutmann
   | optBSD opts = run overwritePseudoOpenBSD
+  | optFemaleDeer opts = run overwriteFemaleDeer
   | optRandom opts > 0 = run $ flip overwriteRandomNTimes n
   | optSimple opts = run overwriteSimple
   | otherwise = error "Homeboy, what is your problem?"
