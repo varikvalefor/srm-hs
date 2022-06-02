@@ -134,4 +134,4 @@ delete :: Opt
        -- ^ This thing contains the paths of the files which are to be
        -- deleted.
        -> IO ();
-delete _ = mapM_ removeFile;
+delete _ = mapM_ removePathForcibly;
