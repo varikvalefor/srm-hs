@@ -64,7 +64,6 @@ instance Options Opt where
         optionDescription = "Overwrite using k random sweeps, " ++
           "where k is the argument of this option."
       })
-    -- optSimple
     optSimple' = defineOption optionType_bool (\o -> o
       {
         optionShortFlags = "s",
