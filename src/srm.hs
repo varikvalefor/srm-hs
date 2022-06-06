@@ -63,11 +63,11 @@ main = runCommand overwrite >> runCommand delete;
 
 -- | @mane a k@ overwrites the files which are specified in @k@ via the
 -- process which is specified in @a@, where @a@ describes the options of
--- @a@ and @k@ is a ['String']-based list of the paths of the files
+-- @a@ and @k@ is a ['FilePath']-based list of the paths of the files
 -- which should be overwritten.
 overwrite :: Opt
           -- ^ A description of the options which are passed to @srm@
-          -> [String]
+          -> [FilePath]
           -- ^ The paths of the files which should be overwritten
           -> IO ();
 overwrite opts args
@@ -84,12 +84,12 @@ overwrite opts args
   run k = mapM_ k args;
 
 -- | @delete _ k@ deletes the files which are specified in @k@, where
--- @k@ is a ['String']-based list of the file paths which are the
+-- @k@ is a ['FilePath']-based list of the file paths which are the
 -- arguments of @srm@.
 delete :: Opt
        -- ^ This bit describes the options which are passed to @srm@...
        -- and actually goes unused.
-       -> [String]
+       -> [FilePath]
        -- ^ This thing contains the paths of the files which are to be
        -- deleted.
        -> IO ();
